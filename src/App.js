@@ -1,12 +1,22 @@
-import './css/App.css';
-import {Header, Footer} from './pages';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {routes} from './global/configs/routes';
+import { Header, Footer } from './pages';
 
 function App() {
   return (
-    <>
-      <Header />
-      <Footer pageName='Hello' />
-    </>
+    <BrowserRouter>
+      <Header/>
+      <Routes>
+        {routes.map((route, index) => (
+          <Route 
+            key={`routes-path-${index}`} 
+            path={route.path} 
+            element={route.element} 
+          />
+        ))}
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   )
 }
 

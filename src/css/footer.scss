@@ -1,0 +1,36 @@
+.footerNav {
+  ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    li {
+      list-style: none;
+      a {
+        text-decoration: none;
+        color: #000;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 0 10px;
+        opacity: 0.8;
+        &:hover {
+          color: #030062;
+          text-decoration: underline;
+          opacity: 1;
+        }
+        &.active {
+          color: #009fc7;
+          text-decoration: underline;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
