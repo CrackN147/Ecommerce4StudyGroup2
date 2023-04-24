@@ -1,9 +1,21 @@
-.red {
-  color: red;
-  text-align: center;
-}
-
-.blue {
-  color: blue;
-  text-align: center;
+.product-item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  img {
+    width: 100px;
+    border: 0;
+  }
+  h3 {
+    font-size: 16px;
+    margin: 0;
+  }
+  p {
+    font-size: 14px;
+    margin: 0;
+  }
+  span {
+    font-size: 12px;
+    margin: 0;
+  }
 }

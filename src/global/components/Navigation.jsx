@@ -21,6 +21,11 @@ export function Navigation (props) {
             Contact
           </Link>
         </li>
+        <li>
+          <Link to="/products" className={location.pathname === '/products' ? 'active' : '' }>
+            Products
+          </Link>
+        </li>
       </ul>
     </nav>
   )
