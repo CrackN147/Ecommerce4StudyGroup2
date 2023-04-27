@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import axios from "axios"
+import {Link} from 'react-router-dom'
+import {api} from '../../global/services/api'
 import {Loader} from '../../global/components/Loader'
 export function Products () {
   const [products, setProducts] = useState([])
@@ -21,7 +22,7 @@ export function Products () {
   
   useEffect(() => {
     const fetchData = async () => {
-      const apiData = await axios.get(`https://fakestoreapi.com/products?limit=${limit}`)
+      const apiData = await api._get(`https://fakestoreapi.com/products?limit=${limit}`)
       if (apiData.status === 200) {
         setProducts(apiData.data)
         setBackUp(apiData.data)
@@ -43,6 +44,7 @@ export function Products () {
             <h3>{product.title}</h3>
             <p>{product.description}</p>
             <span>{product.price}</span>
+            <Link to={`/products/${product.id}`}>Details</Link>
           </div>
         ))
       : <Loader />

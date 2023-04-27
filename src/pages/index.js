@@ -4,3 +4,4 @@ export {Home} from './home';
 export {About} from './about';
 export {Contact} from './contact';
 export {Products} from './products';
+export {Product} from './product';

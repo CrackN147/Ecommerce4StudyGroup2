@@ -1,14 +1,21 @@
 import axios from "axios";
 
-export function _get (path) {
+function _get (path) {
   return axios.get(path);
 }
-export function _post (path, data) {
+function _post (path, data) {
   return axios.post(path, data);
 }
-export function _put (path, data) {
+function _put (path, data) {
   return axios.put(path, data);
 }
-export function _delete (path) {
+function _delete (path) {
   return axios.delete(path);
+}
+
+export const api = {
+  _get,
+  _post,
+  _put,
+  _delete
 }

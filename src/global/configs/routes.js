@@ -1,4 +1,4 @@
-import { Home, About, Contact, Products } from '../../pages';
+import { Home, About, Contact, Products, Product } from '../../pages';
 export const routes = [
   {
     path: '/', 
@@ -21,7 +21,7 @@ export const routes = [
     element: <Products />
   },
   {
-    path: '/products/:id',
-    element: <Products />
+    path: '/products/:prID',
+    element: <Product />
   },
 ]

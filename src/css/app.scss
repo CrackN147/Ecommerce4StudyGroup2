@@ -19,3 +19,15 @@
     margin: 0;
   }
 }
+
+.similar-products {
+  display: flex;
+  justify-content: space-evenly;
+  .product-item{
+    padding: 10px;
+    img {
+      width: 50px;
+      border: 0;
+    }
+  }
+}
