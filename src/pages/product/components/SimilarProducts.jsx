@@ -6,7 +6,7 @@ export function SimilarProducts(props) {
       <img src={product.image} alt={product.title} />
       <p>{product.title}</p>
       <p>{product.price}</p>
-      <Link to={`/products/${product.id}`}>Details</Link>
+      <Link to={`/product-details/${product.id}`}>Details</Link>
     </div>
   )
 }

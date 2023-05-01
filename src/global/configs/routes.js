@@ -21,7 +21,11 @@ export const routes = [
     element: <Products />
   },
   {
-    path: '/products/:prID',
+    path: '/products/:catID',
+    element: <Products />
+  },
+  {
+    path: '/product-details/:prID',
     element: <Product />
   },
 ]

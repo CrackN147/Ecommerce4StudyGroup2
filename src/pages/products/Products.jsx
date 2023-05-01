@@ -1,54 +1,88 @@
 import { useState, useEffect } from "react"
-import {Link} from 'react-router-dom'
+import { useParams, useLocation, useNavigate } from "react-router-dom"
 import {api} from '../../global/services/api'
-import {Loader} from '../../global/components/Loader'
+import {Loader, Categories} from '../../global'
+import { Product, Filters } from "./components"
 export function Products () {
-  const [products, setProducts] = useState([])
-  const [backUp, setBackUp] = useState([])
-  const [limit, setLimit] = useState(5)
-  const action = () => {
-    if (products.length > 0) {
-      let newProducts = [...products]
-      newProducts.shift()
-      setProducts(newProducts)
-    }
+  const { catID } = useParams();
+  let location = useLocation();
+  const navigate = useNavigate();
+
+  const [products, setProducts] = useState([]);
+  const [limit, setLimit] = useState(2);
+  const [sort, setSort] = useState('asc');
+
+  function changeLimit() {
+    let newLimit = limit + 1;
+    setLimit(newLimit)
+    navigate(`?limit=${newLimit}&sort=${sort}`);
   }
-  const reset = () => {
-    setProducts(backUp)
+  function changeSort() {
+    let newSort = (sort === 'asc') ? 'desc' : 'asc';
+    setSort(newSort)
+    navigate(`?limit=${limit}&sort=${newSort}`)
   }
-  const addLimit = () => {
-    setLimit(limit + 5)
-  }
-  
+
   useEffect(() => {
     const fetchData = async () => {
-      const apiData = await api._get(`https://fakestoreapi.com/products?limit=${limit}`)
+      let queryResult = '';
+      let query = location.search.replace('?', '');
+      query = query.split('&');
+      query = query.filter((item) => item.includes('sort') || item.includes('limit'));
+      let limitIndex = query.findIndex((item) => item.includes('limit'));
+      if(limitIndex > -1) {
+        let limitVal = query[limitIndex].replace('limit=', '');
+        if(parseInt(limitVal) > 0) {
+          queryResult += `&limit=${limitVal}`
+        } else {
+          queryResult += `&limit=${limit}`
+        }
+      } else {
+        queryResult += `&limit=${limit}`
+      }
+      let sortIndex = query.findIndex((item) => item.includes('sort'));
+      if(sortIndex > -1) {
+        let sortVal = query[sortIndex].replace('sort=', '');
+        if(sortVal === 'asc' || sortVal === 'desc') {
+          queryResult += `&sort=${sortVal}`
+        } else {
+          queryResult += `&sort=${sort}`
+        }
+      } else {
+        queryResult += `&sort=${sort}`
+      }
+      queryResult = queryResult.replace(/&/, '?');
+      let apiLink = `https://fakestoreapi.com/products${queryResult}`;
+      if (catID) {
+        apiLink = `https://fakestoreapi.com/products/category/${catID}${queryResult}`
+      }
+      const apiData = await api._get(apiLink);
       if (apiData.status === 200) {
         setProducts(apiData.data)
-        setBackUp(apiData.data)
       }
     }
     fetchData()
-  }, [limit])
+  }, [catID, location.search])
+  
   return (
-    <div>
+    <div className="wrapper">
+      <Categories query={location.search} />
       <div>
-        <button onClick={action}>Action</button>
-        <button onClick={reset}>Reset</button>
-        <button onClick={addLimit}>Click Count {limit}</button>
+        <Filters 
+          limit={limit} 
+          sort={sort}
+          changeLimit={changeLimit}
+          changeSort={changeSort}
+        />
+        <div id="products">
+          {products.length > 0 ? 
+            products.map((product) => (
+              <Product product={product} key={product.id} />
+            ))
+          : <Loader />
+          }
+        </div>
       </div>
-      {products.length > 0 ? 
-        products.map((product) => (
-          <div className="product-item" key={product.id}>
-            <img src={product.image} alt={product.title} />
-            <h3>{product.title}</h3>
-            <p>{product.description}</p>
-            <span>{product.price}</span>
-            <Link to={`/products/${product.id}`}>Details</Link>
-          </div>
-        ))
-      : <Loader />
-      }
     </div>
   )
 }
