@@ -27,6 +27,11 @@ export function Navigation(props) {
           </Link>
         </li>
         <li>
+          <Link to="/product-add" className={location.pathname === '/product-add' ? 'active' : ''}>
+            {langs[language].pages.productAdd.title}
+          </Link>
+        </li>
+        <li>
           <button onClick={() => changeLanguage('ka')}>Geo</button>
         </li>
         <li>

@@ -8,6 +8,7 @@ export function Product(props) {
       <p>{product.description}</p>
       <span>{product.price}</span>
       <Link to={`/product-details/${product.id}`}>Details</Link>
+      <Link to={`/product-edit/${product.id}`}>Edit</Link>
     </div>
   )
 }
