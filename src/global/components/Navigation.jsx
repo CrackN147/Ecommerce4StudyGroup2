@@ -1,5 +1,6 @@
 
 import { Link, useLocation } from 'react-router-dom'
+import { IconCart, IconFav } from '../../global/components'
 export function Navigation(props) {
   const { customClass, langs, language, changeLanguage } = props;
   let location = useLocation();
@@ -32,12 +33,22 @@ export function Navigation(props) {
           </Link>
         </li>
         <li>
+          <Link to="cart" className={location.pathname === '/cart' ? 'active' : ''}>
+            <IconCart active={"#0010a4"} />
+          </Link>
+        </li>
+        <li>
+          <Link to="favorites" className={location.pathname === '/favorites' ? 'active' : ''}>
+            <IconFav  active={"#0010a4"} />
+          </Link>
+        </li>
+        <li>
           <button onClick={() => changeLanguage('ka')}>Geo</button>
         </li>
         <li>
           <button onClick={() => changeLanguage('en')}>Eng</button>
         </li>
-    </ul>
+      </ul>
     </nav >
   )
 }

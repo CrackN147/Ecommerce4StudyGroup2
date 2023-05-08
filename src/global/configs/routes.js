@@ -5,7 +5,9 @@ import {
   Products, 
   Product,
   ProductAdd,
-  ProductEdit
+  ProductEdit,
+  Cart,
+  Favorites
 } from '../../pages';
 export const routes = [
   {
@@ -43,5 +45,13 @@ export const routes = [
   {
     path: '/product-edit/:prID',
     element: <ProductEdit />
+  },
+  {
+    path: 'cart',
+    element: <Cart />
+  },
+  {
+    path: 'favorites',
+    element: <Favorites />
   }
 ]
