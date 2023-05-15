@@ -13,11 +13,17 @@ export const CartProvider = ({children}) => {
       products: cart
     })
     if(apiData.status === 200) {
-      console.log(apiData.data)
+      // console.log(apiData.data)
     }
   }
   const processCartStorage = (cart) => {
     storage.set('cart', JSON.stringify(cart));
+  }
+  const changeCartQuantity = (index, newQuantity) => {
+    let cloneCart = [...cart];
+    cloneCart[index].quantity = newQuantity;
+    setCart(cloneCart)
+    processCartStorage(cloneCart);
   }
   const addToCart = (prID) => {
     let cloneCart = [...cart];
@@ -30,6 +36,12 @@ export const CartProvider = ({children}) => {
         quantity: 1
       });
     }
+    setCart(cloneCart)
+    processCartStorage(cloneCart);
+  }
+  const removeProductFromCart = (index) => {
+    let cloneCart = [...cart];
+    cloneCart.splice(index, 1);
     setCart(cloneCart)
     processCartStorage(cloneCart);
   }
@@ -54,7 +66,9 @@ export const CartProvider = ({children}) => {
   return (
     <CartContext.Provider value={{
       cart,
-      addToCart
+      addToCart,
+      changeCartQuantity,
+      removeProductFromCart
     }}>
       {children}
     </CartContext.Provider>
